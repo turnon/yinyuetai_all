@@ -4,7 +4,7 @@
 // ==UserScript==
 // @name         yinyuetai-all
 // @namespace    https://github.com/turnon/yinyuetai_all
-// @version      0.0.1
+// @version      0.0.2
 // @description  yinyuetai
 // @author       block24block@gmail.com
 // @match       *://www.yinyuetai.com/fanclub/*
@@ -39,7 +39,7 @@ window.$$$ = jQuery.noConflict(true);
     })();
   }
 
-  var $all = $$$('<a href="#">all</a>');
+  var $all = $$$('<a href="#">load all</a>');
   $$$(".page-nav span:last-child").before($all);
   $all.click(start).remove();
 })();
