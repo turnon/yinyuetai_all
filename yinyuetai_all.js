@@ -4,7 +4,7 @@
 // ==UserScript==
 // @name         yinyuetai-all
 // @namespace    https://github.com/turnon/yinyuetai_all
-// @version      0.0.2
+// @version      0.0.3
 // @description  yinyuetai
 // @author       block24block@gmail.com
 // @match       *://www.yinyuetai.com/fanclub/*
@@ -13,7 +13,7 @@
 // ==/UserScript==
 window.$$$ = jQuery.noConflict(true);
 
-(function() {
+(function () {
   function start() {
     var $page_count = $$$(".page-nav span:last-child");
     var page_count = parseInt($page_count.text().replace(/[^0-9]/g, ""));
@@ -22,7 +22,9 @@ window.$$$ = jQuery.noConflict(true);
     var base_url = window.location.href;
     for (var i = 2; i <= page_count; i++) {
       var next_page = base_url + "/" + i;
-      page_loaders.push($$$.ajax({ url: next_page }));
+      page_loaders.push($$$.ajax({
+        url: next_page
+      }));
     }
 
     async function append_page(page_loader) {
@@ -32,14 +34,16 @@ window.$$$ = jQuery.noConflict(true);
       $$$(".mod:last-child").after($mod);
     }
 
-    (async function() {
+    (async function () {
       for (loader of page_loaders) {
         await append_page(loader);
       }
     })();
+
+    $all.remove();
   }
 
   var $all = $$$('<a href="#">load all</a>');
   $$$(".page-nav span:last-child").before($all);
-  $all.click(start).remove();
+  $all.click(start);
 })();
